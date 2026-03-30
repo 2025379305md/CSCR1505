@@ -67,3 +67,57 @@ void display (struct node *head)
     printf("NULL");
 }
 
+
+void len(struct node *head)
+{
+    int count=0;
+    struct node *temp=head;
+    while(temp!=NULL)
+    {
+        count++;
+        temp=temp->next;
+    }
+    printf("Length of the linked list is %d",count);
+}
+
+void delete(struct node **head, int pos)
+{
+    if(*head==NULL)
+    {
+        return;
+    }
+    else if(pos==1)
+    {
+        struct node*temp=*head;
+        *head=(*head)->next;
+        free(temp); 
+    }
+    else
+    {
+        struct node *temp=*head;
+        for (int i=0;i<pos-2;i++)
+        {
+            temp=temp->next;
+        }
+        struct node *temp1=temp->next;
+        temp->next=temp1->next;
+        free(temp1);
+    }
+}
+
+
+void main()
+{
+    struct node *head=NULL;
+    insertend(&head,10);
+    insertend(&head,20);
+    insertend(&head,30);
+    insertend(&head,40);
+    insertend(&head,50);
+    display(head);
+    printf("\n");
+    len(head);
+    printf("\n");
+    delete(&head,3);
+    display(head);
+}
